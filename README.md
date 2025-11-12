@@ -38,7 +38,8 @@ npm run dev
 - Command handler for text and slash commands
 - Bot events (ready, reconnect, disconnect, guild member add)
 - Admin commands: guilds, close
-- Common commands: echo
+- Common commands: echo, random, color, advice, genpass, lmgtfy, poll
+- Fun commands: say, coin, flip, joke
 
 ## TODO
 
