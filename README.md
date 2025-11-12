@@ -36,7 +36,7 @@ npm run dev
 
 - Basic bot initialization with SapphireJS
 - Command handler for text and slash commands
-- Bot events (ready, reconnect, disconnect, guild member add)
+- Bot events: ready (with status rotation), reconnect, disconnect, guild join/leave/ban, member join, voice state update, message create, interaction create
 - Admin commands: guilds, close
 - Common commands: echo, random, color, advice, genpass, lmgtfy, poll
 - Fun commands: say, coin, flip, joke
