@@ -1,6 +1,9 @@
-# LambdaBotTS
+<div align="center">
+   <h1>LambdaBotTS</h1>
+   <p>A rewrite of the Lambda Discord bot in TypeScript using SapphireJS and modern Discord.js v14.</p>
+   <p><a href="https://github.com/Zone-Infinity/LambdaBot">Original project and code written by</a> @Zone-Infinity</p>
+</div>
 
-A Discord bot remake of LambdaBot in TypeScript using SapphireJS framework and modern Discord.js 14.20+.
 
 ## Setup
 
