@@ -1,7 +1,7 @@
 import { Command } from '@sapphire/framework';
 import { EmbedBuilder, Message, PermissionFlagsBits } from 'discord.js';
 import { uptime } from 'process';
-import stripIndent from 'common-tags';
+import { stripIndent } from 'common-tags';
 
 export class BotInfoCommand extends Command {
   public constructor(context: Command.LoaderContext, options: Command.Options) {
