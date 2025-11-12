@@ -1,7 +1,7 @@
 import { Listener } from '@sapphire/framework';
 import { TextChannel, ActivityType } from 'discord.js';
 
-export class ReadyListener extends Listener<'ready'> {
+export class ReadyListener extends Listener<'clientReady'> {
   private static readonly botStatusChannelID = '770225299396624394';
   private static readonly globalAuditsChannelID = '758724135790051368';
 
