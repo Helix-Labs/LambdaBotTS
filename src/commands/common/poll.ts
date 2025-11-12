@@ -34,7 +34,7 @@ export class PollCommand extends Command {
       .setTitle(`❓ ${question}`)
       .setDescription(optionText);
 
-    const pollMessage = await message.channel.send({ embeds: [embed] });
+    const pollMessage = await (message.channel as any).send({ embeds: [embed] });
 
     for (let i = 0; i < options.length; i++) {
       await pollMessage.react(numberEmojis[i]);
@@ -68,7 +68,7 @@ export class PollCommand extends Command {
   }
 
   public async registerApplicationCommands(registry: Command.Registry) {
-    const builder = registry.registerChatInputCommand((builder) =>
+    registry.registerChatInputCommand((builder) =>
       builder.setName('poll')
         .setDescription('Create a poll')
         .addStringOption(option =>
@@ -76,14 +76,56 @@ export class PollCommand extends Command {
             .setDescription('The poll question')
             .setRequired(true)
         )
+        .addStringOption(option =>
+          option.setName('option1')
+            .setDescription('Option 1')
+            .setRequired(true)
+        )
+        .addStringOption(option =>
+          option.setName('option2')
+            .setDescription('Option 2')
+            .setRequired(true)
+        )
+        .addStringOption(option =>
+          option.setName('option3')
+            .setDescription('Option 3')
+            .setRequired(false)
+        )
+        .addStringOption(option =>
+          option.setName('option4')
+            .setDescription('Option 4')
+            .setRequired(false)
+        )
+        .addStringOption(option =>
+          option.setName('option5')
+            .setDescription('Option 5')
+            .setRequired(false)
+        )
+        .addStringOption(option =>
+          option.setName('option6')
+            .setDescription('Option 6')
+            .setRequired(false)
+        )
+        .addStringOption(option =>
+          option.setName('option7')
+            .setDescription('Option 7')
+            .setRequired(false)
+        )
+        .addStringOption(option =>
+          option.setName('option8')
+            .setDescription('Option 8')
+            .setRequired(false)
+        )
+        .addStringOption(option =>
+          option.setName('option9')
+            .setDescription('Option 9')
+            .setRequired(false)
+        )
+        .addStringOption(option =>
+          option.setName('option10')
+            .setDescription('Option 10')
+            .setRequired(false)
+        )
     );
-
-    for (let i = 1; i <= 10; i++) {
-      builder.addStringOption(option =>
-        option.setName(`option${i}`)
-          .setDescription(`Option ${i}`)
-          .setRequired(i <= 2)
-      );
-    }
   }
 }
