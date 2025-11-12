@@ -1,6 +1,7 @@
 import { Command } from '@sapphire/framework';
 import { EmbedBuilder, Message, PermissionFlagsBits } from 'discord.js';
 import { uptime } from 'process';
+import stripIndent from 'common-tags';
 
 export class BotInfoCommand extends Command {
   public constructor(context: Command.LoaderContext, options: Command.Options) {
@@ -23,9 +24,13 @@ export class BotInfoCommand extends Command {
     const uptimeMs = uptime() * 1000;
     const uptimeString = this.formatUptime(uptimeMs);
 
+    // Calculate total members and average
+    const totalMembers = this.container.client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+    const averageMembersPerGuild = Math.round(totalMembers / this.container.client.guilds.cache.size);
+
     const embed = new EmbedBuilder()
       .setTitle('🤖 Bot Info')
-      .setDescription('Made with ♥ by Zone Community')
+      .setDescription('Made with ♥ by ZoneInfinity')
       .setAuthor({
         name: 'Zone#0001',
         iconURL: selfUser.displayAvatarURL(),
@@ -34,17 +39,29 @@ export class BotInfoCommand extends Command {
       .addFields(
         {
           name: 'General 👓',
-          value: `\`\`\`css\nOwner : [Zone#0001]\nLibrary : [Discord.js]\nPrefix : [/]\nCommand Number : [${commandCount}]\n\`\`\``,
+          value: stripIndent`\`\`\`css
+                Owner : [Zone#0001]
+                Library : [Discord.js]
+                Prefix : [/]
+                Command Number : [${commandCount}]
+                \`\`\``,
           inline: false
         },
         {
           name: 'Client λ',
-          value: `\`\`\`css\nClient ID : [${selfUser.id}]\nServers : [${client.guilds.cache.size}]\nUsers : [${client.users.cache.size}]\nAverage Users per Server : [${Math.round(client.users.cache.size / client.guilds.cache.size)}]\nWS Ping : [${client.ws.ping}ms]\nUptime : [${uptimeString}]\n\`\`\``,
+          value: stripIndent`\`\`\`css
+                Client ID : [${selfUser.id}]
+                Servers : [${client.guilds.cache.size}]
+                Users : [${totalMembers}]
+                Average Users per Server : [${averageMembersPerGuild}]
+                WS Ping : [${client.ws.ping}ms]
+                Uptime : [${uptimeString}]
+                \`\`\``,
           inline: false
         },
         {
           name: 'Links 🔗',
-          value: '** [Github](https://github.com/Zone-Infinity/LambdaDiscordBot) • [TopGG](https://top.gg/bot/752052866809593906) • [Support Server](https://discord.com/invite/XCNehWVrH7)**',
+          value: '** [Github](https://github.com/4ngel2769/LambdaBotTS) • [TopGG](https://top.gg/bot/752052866809593906) • [Support Server](https://discord.com/invite/XCNehWVrH7)**',
           inline: false
         }
       )
@@ -64,6 +81,10 @@ export class BotInfoCommand extends Command {
     const uptimeMs = uptime() * 1000;
     const uptimeString = this.formatUptime(uptimeMs);
 
+    // Calculate total members and average
+    const totalMembers = this.container.client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+    const averageMembersPerGuild = Math.round(totalMembers / this.container.client.guilds.cache.size);
+
     const embed = new EmbedBuilder()
       .setTitle('🤖 Bot Info')
       .setDescription('Made with ♥ by Zone Community')
@@ -80,7 +101,14 @@ export class BotInfoCommand extends Command {
         },
         {
           name: 'Client λ',
-          value: `\`\`\`css\nClient ID : [${selfUser.id}]\nServers : [${client.guilds.cache.size}]\nUsers : [${client.users.cache.size}]\nAverage Users per Server : [${Math.round(client.users.cache.size / client.guilds.cache.size)}]\nWS Ping : [${client.ws.ping}ms]\nUptime : [${uptimeString}]\n\`\`\``,
+          value: stripIndent`\`\`\`css
+                Client ID : [${selfUser.id}]
+                Servers : [${client.guilds.cache.size}]
+                Users : [${totalMembers}]
+                Average Users per Server : [${averageMembersPerGuild}]
+                WS Ping : [${client.ws.ping}ms]
+                Uptime : [${uptimeString}]
+                \`\`\``,
           inline: false
         },
         {
