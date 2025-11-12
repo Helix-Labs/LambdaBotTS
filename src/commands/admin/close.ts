@@ -1,5 +1,6 @@
 import { Command } from '@sapphire/framework';
 import { Message } from 'discord.js';
+import { Config } from '../../config/Config';
 
 export class CloseCommand extends Command {
   public constructor(context: Command.Context, options: Command.Options) {
@@ -11,7 +12,7 @@ export class CloseCommand extends Command {
   }
 
   public async messageRun(message: Message) {
-    if (message.author.id !== process.env.OWNER_ID) return;
+    if (!Config.isOwner(message.author.id)) return;
 
     await message.reply('Shutting Down');
     this.container.logger.info('Shutting Down');
@@ -21,7 +22,7 @@ export class CloseCommand extends Command {
   }
 
   public async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
-    if (interaction.user.id !== process.env.OWNER_ID) return;
+    if (!Config.isOwner(interaction.user.id)) return;
 
     await interaction.reply('Shutting Down');
     this.container.logger.info('Shutting Down');

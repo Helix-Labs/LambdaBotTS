@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { SapphireClient } from '@sapphire/framework';
 import { GatewayIntentBits } from 'discord.js';
 import { DatabaseManager } from './database/DatabaseManager';
+import { Config } from './config/Config';
 
 const client = new SapphireClient({
   intents: [
@@ -18,12 +19,14 @@ const client = new SapphireClient({
 
 async function main() {
   try {
+    // Validate configuration
+    Config.validate();
+
     // Connect to MongoDB
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/lambdabot';
-    await DatabaseManager.getInstance().connect(mongoUri);
+    await DatabaseManager.getInstance().connect(Config.MONGODB_URI);
 
     // Login to Discord
-    await client.login(process.env.DISCORD_TOKEN);
+    await client.login(Config.DISCORD_TOKEN);
   } catch (error) {
     console.error('Failed to start the bot:', error);
     process.exit(1);

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { GuildSettings, IGuildSettings } from './GuildSettings';
+import { Config } from '../config/Config';
 
 export class DatabaseManager {
   private static instance: DatabaseManager;
@@ -104,9 +105,9 @@ export class DatabaseManager {
     if (!settings) {
       settings = await GuildSettings.create({
         guildId,
-        prefix: '!',
+        prefix: Config.DEFAULT_PREFIX,
         welcomeChannelId: '',
-        welcomeMessage: 'Welcome {user} to {guild}!',
+        welcomeMessage: Config.DEFAULT_WELCOME_MESSAGE,
         welcomeBackground: 'default'
       });
     }
