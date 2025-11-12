@@ -40,7 +40,3 @@ npm run dev
 - Admin commands: guilds, close
 - Common commands: echo, random, color, advice, genpass, lmgtfy, poll
 - Fun commands: say, coin, flip, joke
-
-## TODO
-
-See the todo list for remaining tasks.
