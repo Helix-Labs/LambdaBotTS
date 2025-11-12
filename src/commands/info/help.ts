@@ -149,7 +149,7 @@ export class HelpCommand extends Command {
     return message.reply({ embeds: [embed] });
   }
 
-  private async showMainHelpInteraction(interaction: Command.ChatInputCommandInteraction) {
+  private async showMainHelpInteraction(interaction: Command.ChatInputCommandInteraction, prefix: string = '/') {
     const categoryMap = this.getAvailableCategories();
     const entries = Array.from(categoryMap.entries());
 
@@ -167,7 +167,7 @@ export class HelpCommand extends Command {
     const embed = new EmbedBuilder()
       .setTitle('**λ** Help')
       .setDescription('**[Invite Me](https://discord.com/api/oauth2/authorize?client_id=752052866809593906&permissions=540375616&scope=bot)** | **Join our [Support Server](https://discord.com/invite/XCNehWVrH7)**\n' +
-        '**Bot prefix** : `/`\n' +
+        `**Bot prefix** : \`\`${prefix}\`\`\n` +
         '```A Fun Bot which has many commands       \n' +
         'It provides you with some Common commands\n' +
         'Some Fun and most important MUSIC !! 😄 \n' +
