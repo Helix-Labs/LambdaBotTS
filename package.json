@@ -17,6 +17,7 @@
     "@sapphire/framework": "^5.4.0",
     "@types/node": "^24.10.1",
     "discord.js": "^14.24.2",
+    "dotenv": "^17.2.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
