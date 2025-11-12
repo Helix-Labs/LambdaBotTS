@@ -39,4 +39,5 @@ npm run dev
 - Bot events: ready (with status rotation), reconnect, disconnect, guild join/leave/ban, member join, voice state update, message create, interaction create
 - Admin commands: guilds, close
 - Common commands: echo, random, color, advice, genpass, lmgtfy, poll
-- Fun commands: say, coin, flip, joke
+- Fun commands: say, bored, chat, distract, emojify, flip, joke, meme, pixel, urban
+- Games commands: 8ball, roll, rps
