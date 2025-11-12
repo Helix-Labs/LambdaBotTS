@@ -98,4 +98,18 @@ export class DatabaseManager {
       { upsert: true, new: true }
     );
   }
+
+  private async getGuildSettings(guildId: string): Promise<IGuildSettings> {
+    let settings = await GuildSettings.findOne({ guildId });
+    if (!settings) {
+      settings = await GuildSettings.create({
+        guildId,
+        prefix: '!',
+        welcomeChannelId: '',
+        welcomeMessage: 'Welcome {user} to {guild}!',
+        welcomeBackground: 'default'
+      });
+    }
+    return settings;
+  }
 }
