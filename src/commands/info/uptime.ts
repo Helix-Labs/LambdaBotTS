@@ -25,7 +25,9 @@ export class UptimeCommand extends Command {
       builder
         .setName(this.name)
         .setDescription(this.description)
-    );
+    , {
+      idHints: ['1438118853715689533']
+    });
   }
 
   private formatUptime(seconds: number): string {
