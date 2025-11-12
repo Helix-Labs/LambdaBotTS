@@ -114,18 +114,19 @@ export class HelpCommand extends Command {
   }
 
   private async showMainHelp(message: Message, prefix: string) {
-    const categories = [
-      { name: 'Common', desc: 'Common Commands for the server members', emote: 'λ' },
-      { name: 'Images', desc: 'Commands that sends images', emote: '🎮' },
-      { name: 'Fun', desc: 'Fun Commands which include games and images', emote: 'ℹ️' },
-      { name: 'Info', desc: 'Info Commands for info of the bot, server and members', emote: '🎵' },
-      { name: 'Music', desc: 'Music Commands when you are in a Voice Channel', emote: '🎉' },
-      { name: 'Game', desc: 'Commands to play Small fun games', emote: '😊' },
-      { name: 'Utilities', desc: 'Commands to generate String and Images', emote: '🛠️' },
-      { name: 'Settings', desc: 'Commands to get and change Server Settings', emote: '⚙️' }
-    ];
+    const categoryMap = this.getAvailableCategories();
+    const entries = Array.from(categoryMap.entries());
 
-    const desc = `\`${prefix}help <category>\`\n${categories.map(cat => `**${cat.emote} ${cat.name}** : \`${cat.desc}\``).join('\n')}`;
+    const categories = entries
+      .filter(([cat]) => cat !== HelpCategory.OWNER)
+      .map(([cat, commands]) => ({
+        name: cat,
+        desc: this.getCategoryDescription(cat),
+        emote: this.getCategoryEmote(cat),
+        count: commands.length
+      }));
+
+    const desc = `\`${prefix}help <category>\`\n${categories.map(cat => `**${cat.emote} ${cat.name}** (${cat.count} commands) : \`${cat.desc}\``).join('\n')}`;
 
     const embed = new EmbedBuilder()
       .setTitle('**λ** Help')
@@ -146,19 +147,19 @@ export class HelpCommand extends Command {
   }
 
   private async showMainHelpInteraction(interaction: Command.ChatInputCommandInteraction) {
-    // Similar to above but for interaction
-    const categories = [
-      { name: 'Common', desc: 'Common Commands for the server members', emote: 'λ' },
-      { name: 'Images', desc: 'Commands that sends images', emote: '🎮' },
-      { name: 'Fun', desc: 'Fun Commands which include games and images', emote: 'ℹ️' },
-      { name: 'Info', desc: 'Info Commands for info of the bot, server and members', emote: '🎵' },
-      { name: 'Music', desc: 'Music Commands when you are in a Voice Channel', emote: '🎉' },
-      { name: 'Game', desc: 'Commands to play Small fun games', emote: '😊' },
-      { name: 'Utilities', desc: 'Commands to generate String and Images', emote: '🛠️' },
-      { name: 'Settings', desc: 'Commands to get and change Server Settings', emote: '⚙️' }
-    ];
+    const categoryMap = this.getAvailableCategories();
+    const entries = Array.from(categoryMap.entries());
 
-    const desc = categories.map(cat => `**${cat.emote} ${cat.name}** : \`${cat.desc}\``).join('\n');
+    const categories = entries
+      .filter(([cat]) => cat !== HelpCategory.OWNER)
+      .map(([cat, commands]) => ({
+        name: cat,
+        desc: this.getCategoryDescription(cat),
+        emote: this.getCategoryEmote(cat),
+        count: commands.length
+      }));
+
+    const desc = categories.map(cat => `**${cat.emote} ${cat.name}** (${cat.count} commands) : \`${cat.desc}\``).join('\n');
 
     const embed = new EmbedBuilder()
       .setTitle('**λ** Help')
@@ -248,6 +249,18 @@ export class HelpCommand extends Command {
     return HelpCategory.OWNER;
   }
 
+  private getAvailableCategories(): Map<HelpCategory, Command[]> {
+    const categoryMap = new Map<HelpCategory, Command[]>();
+    for (const command of this.container.stores.get('commands').values()) {
+      const cat = this.getCommandCategory(command);
+      if (!categoryMap.has(cat)) {
+        categoryMap.set(cat, []);
+      }
+      categoryMap.get(cat)!.push(command);
+    }
+    return categoryMap;
+  }
+
   private getCategoryDescription(category: HelpCategory): string {
     switch (category) {
       case HelpCategory.COM: return 'Common Commands for the server members';
@@ -259,6 +272,20 @@ export class HelpCommand extends Command {
       case HelpCategory.UTIL: return 'Commands to generate String and Images';
       case HelpCategory.SETTINGS: return 'Commands to get and change Server Settings';
       default: return 'Unknown';
+    }
+  }
+
+  private getCategoryEmote(category: HelpCategory): string {
+    switch (category) {
+      case HelpCategory.COM: return 'λ';
+      case HelpCategory.IMAGES: return '🎮';
+      case HelpCategory.FUN: return 'ℹ️';
+      case HelpCategory.INFO: return '🎵';
+      case HelpCategory.MUSIC: return '🎉';
+      case HelpCategory.GAME: return '😊';
+      case HelpCategory.UTIL: return '🛠️';
+      case HelpCategory.SETTINGS: return '⚙️';
+      default: return '❓';
     }
   }
 }
