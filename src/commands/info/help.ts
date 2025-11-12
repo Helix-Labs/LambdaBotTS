@@ -1,5 +1,6 @@
 import { Command } from '@sapphire/framework';
 import { EmbedBuilder, Message } from 'discord.js';
+import { DatabaseManager } from '../../database/DatabaseManager';
 
 enum HelpCategory {
   COM = 'Common',
@@ -26,7 +27,7 @@ export class HelpCommand extends Command {
 
   public async messageRun(message: Message) {
     const args = message.content.split(' ').slice(1);
-    const prefix = '/'; // Assuming slash commands, but for message commands
+    const prefix = await DatabaseManager.getInstance().getPrefix(message.guildId!);
 
     if (args.length === 0) {
       return this.showMainHelp(message, prefix);
@@ -69,7 +70,9 @@ export class HelpCommand extends Command {
       return interaction.reply(`Category \`${categoryName}\` not found.`);
     }
 
-    return this.showMainHelpInteraction(interaction);
+    // Show main help
+    const prefix = await DatabaseManager.getInstance().getPrefix(interaction.guildId!);
+    return this.showMainHelpInteraction(interaction, prefix);
   }
 
   public override registerApplicationCommands(registry: Command.Registry) {
