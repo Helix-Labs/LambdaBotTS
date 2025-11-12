@@ -1,7 +1,7 @@
 import { Command } from '@sapphire/framework';
 import { EmbedBuilder, Message } from 'discord.js';
 import axios from 'axios';
-import { Images } from './images';
+import { Images } from '../../constants/images';
 
 export abstract class ImageCommand extends Command {
   protected abstract getImageType(): Images;
@@ -48,13 +48,5 @@ export abstract class ImageCommand extends Command {
     } catch (error) {
       return interaction.editReply('Failed to fetch image. Please try again later.');
     }
-  }
-
-  public override registerApplicationCommands(registry: Command.Registry) {
-    registry.registerChatInputCommand((builder) =>
-      builder
-        .setName(this.name)
-        .setDescription(this.description)
-    );
   }
 }

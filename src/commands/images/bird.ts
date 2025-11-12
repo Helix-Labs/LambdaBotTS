@@ -1,6 +1,6 @@
 import { Command } from '@sapphire/framework';
 import { ImageCommand } from './image-command';
-import { Images } from './images';
+import { Images } from '../../constants/images';
 
 export class BirdCommand extends ImageCommand {
   public constructor(context: Command.LoaderContext, options: Command.Options) {

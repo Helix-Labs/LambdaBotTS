@@ -60,26 +60,6 @@ export abstract class ImageUtilCommand extends Command {
     }
   }
 
-  public override registerApplicationCommands(registry: Command.Registry) {
-    registry.registerChatInputCommand((builder) =>
-      builder
-        .setName(this.name)
-        .setDescription(this.description)
-        .addStringOption((option) =>
-          option
-            .setName('image_url')
-            .setDescription('URL of the image to process')
-            .setRequired(false)
-        )
-        .addAttachmentOption((option) =>
-          option
-            .setName('attachment')
-            .setDescription('Image attachment to process')
-            .setRequired(false)
-        )
-    );
-  }
-
   private async processImage(message: Message, imageUrl: string) {
     const formData = new FormData();
     formData.append('image', imageUrl);

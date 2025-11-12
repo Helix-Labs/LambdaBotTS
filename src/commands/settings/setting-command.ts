@@ -47,18 +47,4 @@ export abstract class SettingCommand extends Command {
       return interaction.editReply('Something went wrong, please try again later.');
     }
   }
-
-  public override registerApplicationCommands(registry: Command.Registry) {
-    registry.registerChatInputCommand((builder) =>
-      builder
-        .setName(this.name)
-        .setDescription(this.description)
-        .addStringOption((option) =>
-          option
-            .setName('value')
-            .setDescription(`The new ${this.getSettingName().toLowerCase()} value`)
-            .setRequired(true)
-        )
-    );
-  }
 }

@@ -16,4 +16,5 @@ const GuildSettingsSchema = new Schema<IGuildSettings>({
   welcomeBackground: { type: String, default: 'default' }
 });
 
-export const GuildSettings = mongoose.model<IGuildSettings>('GuildSettings', GuildSettingsSchema);
+// Check if model already exists to prevent OverwriteModelError
+export const GuildSettings = mongoose.models.GuildSettings || mongoose.model<IGuildSettings>('GuildSettings', GuildSettingsSchema);
